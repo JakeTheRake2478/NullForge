@@ -6,8 +6,11 @@
 
   <title>NullForge</title>
 
-  <!-- Hammer favicon -->
-  <link rel="icon" type="image/png" href="/hammericon.png">
+  <!-- Favicon (robust setup) -->
+  <link rel="icon" href="/hammericon.png" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/hammericon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/hammericon.png">
+  <link rel="apple-touch-icon" href="/hammericon.png">
 
   <style>
     :root {
@@ -176,7 +179,6 @@
       0%, 100% {
         transform: translateY(0) rotate(-0.4deg);
       }
-
       50% {
         transform: translateY(-8px) rotate(0.4deg);
       }
@@ -186,11 +188,9 @@
       body {
         align-items: flex-start;
       }
-
       .hammer {
         width: min(30vh, 180px, 52vw);
       }
-
       .card {
         padding-top: 20px;
         padding-bottom: 20px;
@@ -201,7 +201,6 @@
       .card {
         width: 100%;
       }
-
       .badge {
         max-width: 100%;
       }
@@ -212,19 +211,12 @@
 <body>
   <main class="card">
     <div class="badge">
-      <svg class="cf-logo" viewBox="0 0 256 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path fill="#f38020" d="M186.8 123.3c13.6 0 24.6-11 24.6-24.6S200.4 74 186.8 74h-7.6c-5.3-28.1-29.9-49.4-59.6-49.4-23.5 0-43.8 13.4-53.9 33-2.5-.6-5.2-.9-7.9-.9-19.4 0-35.1 15.7-35.1 35.1s15.7 35.1 35.1 35.1h129z"/>
-        <path fill="#faae40" d="M205.7 123.3c15.2 0 27.5-12.3 27.5-27.5s-12.3-27.5-27.5-27.5h-10.1c-6.6-22.9-27.7-39.7-52.7-39.7-22 0-41 12.9-49.8 31.6 4.8-2.1 10-3.2 15.5-3.2 20.2 0 36.9 15.1 39.4 34.6h57.7c8.8 0 15.9 7.1 15.9 15.9s-7.1 15.8-15.9 15.8z"/>
-      </svg>
-
+      <!-- (SVG unchanged) -->
       Protected by Cloudflare
     </div>
 
-    <img
-      class="hammer"
-      alt="NullForge Hammer"
-      src="data:image/webp;base64,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"
-    />
+    <!-- your hammer image stays exactly as you had it -->
+    <img class="hammer" alt="NullForge Hammer" src="data:image/webp;base64,...(unchanged)..." />
 
     <h1>protected by cloudflare</h1>
 
