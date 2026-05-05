@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>NullForge</title>
 
-  <!-- FIXED FAVICON (matches your actual file: hammericon.jpg) -->
-  <link rel="icon" href="/hammericon.jpg" sizes="any">
-  <link rel="icon" type="image/jpeg" sizes="32x32" href="/hammericon.jpg">
-  <link rel="icon" type="image/jpeg" sizes="16x16" href="/hammericon.jpg">
-  <link rel="apple-touch-icon" href="/hammericon.jpg">
+  <!-- 1. The primary favicon (Relies on the file being in the root folder) -->
+  <link rel="icon" type="image/jpeg" href="hammericon.jpg">
+  
+  <!-- 2. Apple Touch Icon (iOS looks for this specifically) -->
+  <link rel="apple-touch-icon" href="hammericon.jpg">
 
   <style>
     body {
@@ -59,9 +58,8 @@
 
 <body>
   <div class="card">
-
-    <!-- FIXED: using file instead of broken base64 -->
-    <img class="hammer" src="/hammericon.jpg" alt="NullForge Hammer">
+    <!-- Using the same relative path as the favicon -->
+    <img class="hammer" src="hammericon.jpg" alt="NullForge Hammer">
 
     <h1>protected by cloudflare</h1>
 
@@ -72,7 +70,6 @@
     <div class="status">
       🟢 Website test online
     </div>
-
   </div>
 </body>
 </html>
