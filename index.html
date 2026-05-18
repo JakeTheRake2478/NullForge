@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NullForge Test Page</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="hammericon.ico" type="image/x-icon">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0f0f0f;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 750px;
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 2.7rem;
+      margin-bottom: 25px;
+    }
+
+    p {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: #d4d4d4;
+    }
+
+    button {
+      margin-top: 35px;
+      padding: 15px 40px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      background-color: white;
+      color: black;
+      transition: transform 0.15s ease, opacity 0.2s ease;
+    }
+
+    button:hover:not(:disabled) {
+      transform: scale(1.05);
+    }
+
+    button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .counter {
+      margin-top: 18px;
+      font-size: 1rem;
+      color: #a8a8a8;
+    }
+
+    .footer {
+      margin-top: 55px;
+      font-size: 0.95rem;
+      color: #777;
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .small {
+      margin-top: 12px;
+      font-size: 0.8rem;
+      color: #555;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>NullForge Test Page</h1>
+
+    <p>
+      This is meant to test my domain.<br><br>
+
+      If you're anyone other than my friends or family,
+      thanks for visiting — but there’s honestly nothing
+      here for you other than a like button which I advise
+      you to click.<br><br>
+
+      That’s all. Bye.
+    </p>
+
+    <button id="likeButton">👍 Like</button>
+
+    <div class="counter">
+      Total Likes: <span id="count">Loading...</span>
+    </div>
+
+    <div class="small">
+      (1 like per device • anti-spam enabled)
+    </div>
+
+    <div class="footer">
+      Reach me at:
+      <a href="mailto:jacksandoval@nullforge.tech">
+        jacksandoval@nullforge.tech
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const namespace = "nullforge-site";
+    const key = "like-button";
+
+    const button = document.getElementById("likeButton");
+    const countText = document.getElementById("count");
+
+    const COOLDOWN = 5000;
+
+    async function updateCount(increment = false) {
+      const url = increment
+        ? `https://api.countapi.xyz/hit/${namespace}/${key}`
+        : `https://api.countapi.xyz/get/${namespace}/${key}`;
+
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        countText.innerText = data.value;
+      } catch {
+        countText.innerText = "Error";
+      }
+    }
+
+    // disable if already liked
+    if (localStorage.getItem("alreadyLiked") === "true") {
+      button.disabled = true;
+      button.innerText = "Already Liked 👍";
+    }
+
+    button.addEventListener("click", async () => {
+      if (localStorage.getItem("alreadyLiked") === "true") return;
+
+      const lastClick = localStorage.getItem("lastClickTime");
+      const now = Date.now();
+
+      if (lastClick && now - lastClick < COOLDOWN) {
+        alert("Slow down.");
+        return;
+      }
+
+      localStorage.setItem("lastClickTime", now);
+
+      button.disabled = true;
+      button.innerText = "Liking...";
+
+      await updateCount(true);
+
+      localStorage.setItem("alreadyLiked", "true");
+
+      button.innerText = "Thanks 👍";
+    });
+
+    updateCount();
+  </script>
+</body>
+</html>
